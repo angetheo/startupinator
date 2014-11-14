@@ -4,6 +4,8 @@ require 'active_record'
 require 'logger'
 require 'hirb'
 require 'faker'
+# require_relative '../db/controllers/controller'
+
 
 Hirb.enable
 

@@ -6,7 +6,7 @@ require_relative 'config/config'
 
 desc "launch console"
 task :console do
-  exec "irb -r./config/config.rb"
+  exec "irb -r ./config/config.rb"
 end
 
 namespace :generate do
