@@ -9,6 +9,28 @@ task :console do
   exec "irb -r./config/config.rb"
 end
 
+namespace :generate do
+  desc "Generate a blank migration"
+  task :migration, [:m_name] do |t, args|
+    timestamp = Time.now.to_s[0..-7].gsub(/[-\s:]/, '')
+    file_name = [timestamp, args[:m_name]].join('_') + '.rb'
+    path = APP_ROOT.join('db','migrate')
+    class_name = ActiveSupport::Inflector.camelize(args[:m_name])
+    unless File.exist?(File.join(path, file_name))
+      File.open(File.join(path, file_name), 'w+') do |f|
+        f.write(<<-RUBY
+class #{class_name} < ActiveRecord::Migration
+  def change
+  end
+end
+RUBY
+          )
+      end
+    end
+  end
+end
+
+
 desc "create the database"
 task "db:create" do
   touch 'db/ar-main.sqlite3'
@@ -22,6 +44,7 @@ end
 desc "populate the database with sample data"
 task "db:seed" do
   #populate with data here
+   require APP_ROOT.join('db', 'seeds.rb')
 end
 
 desc "migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
