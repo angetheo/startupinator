@@ -1,5 +1,5 @@
 # for testing:
-require_relative '../../config/config'
+# require_relative '../../config/config'
 require 'faker'
 
 class Controller
