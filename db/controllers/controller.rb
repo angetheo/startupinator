@@ -19,7 +19,11 @@ class Controller
     category_obj = Category.where(name: category).first
     company_name = category_obj.companies.sample.name
     audience_name = @audiences.sample.name
-    "It's like #{company_name} for #{audience_name}"
+    idea = "It's like #{company_name} for #{audience_name}"
+  end
+
+  def tweet_length_check(string)
+    string.length < 130
   end
 end
 
