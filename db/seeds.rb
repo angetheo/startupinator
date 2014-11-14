@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ################ TEST SEED ###################
 
 # Companies:
@@ -40,3 +41,25 @@ categories = ["transportation", "dating", "food", "social", "photography"]
 categories.each { |name| Category.create({ name: name })}
 
 ###############################################
+=======
+require 'csv'
+#require_relative '../config/config'
+
+audiences = CSV.read('csv/audiences.csv')
+audiences.flatten!
+audiences.each {|name| Audience.create(name: name)}
+
+companies = CSV.read('csv/startups.csv')
+companies.flatten!
+companies.each {|startup| Company.create(name: startup)}
+
+categories = CSV.read('csv/categories.csv')
+categories.flatten!
+categories.each {|cat| Category.create(name: cat)}
+
+
+
+
+
+
+>>>>>>> e461ca865d1d68512f589e57f892d48a8b474e7f

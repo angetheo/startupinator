@@ -71,10 +71,6 @@ end
 
 p controller.all_ideas
 
-
-
-
-
 # p new_controller.idea_by_category('transportation')
 # tweet = new_controller.tweet_idea
 # p tweet

@@ -4,6 +4,7 @@ require 'active_record'
 require 'logger'
 require 'hirb'
 require 'faker'
+require 'csv'
 # require_relative '../db/controllers/controller'
 
 
