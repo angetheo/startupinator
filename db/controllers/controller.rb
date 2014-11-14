@@ -1,5 +1,5 @@
 # for testing:
-# require_relative '../../config/config'
+require_relative '../../config/config'
 require 'faker'
 
 class Controller
@@ -9,73 +9,63 @@ class Controller
     @categories = Category.all
     @audiences = Audience.all
     @all_ideas = []
+    @company_name = ""
+    @audience_name = ""
+    @idea = "It's like #{@company_name}, but for #{@audience_name}"
   end
 
   def rand_idea
-    company_name = @companies.sample.name
-    audience_name = @audiences.sample.name
-    idea = "It's like #{company_name}, but for #{audience_name}"
-    store_ideas(idea)
-    idea
+    sample
+    store_ideas(@idea)
+    @idea
   end
 
   def tweet_idea
-    company_name = @companies.sample.name
-    audience_name = @audiences.sample.name
-    idea = "It's like #{company_name}, but for #{audience_name}"
-    until tweet_length_check(idea) do
-      idea = "It's like #{company_name}, but for #{audience_name}"
+    sample
+    until tweet_length_check(@idea) do
+      sample
     end
-    store_ideas(idea)
-    idea
+    store_ideas(@idea)
+    @idea
   end
 
-  # need to make more associations between companies and categories
   def idea_by_category(category)
     category_obj = Category.where(name: category).first
     company_name = category_obj.companies.sample.name
-    audience_name = @audiences.sample.name
-    idea = "It's like #{company_name} but for #{audience_name}"
-    store_ideas(idea)
-    idea
+    @idea = "It's like #{company_name} but for #{@audience_name}"
+    store_ideas(@idea)
+    @idea
   end
 
   def tweet_by_category(category)
     category_obj = Category.where(name: category).first
     company_name = category_obj.companies.sample.name
-    audience_name = @audiences.sample.name
-    idea = "It's like #{company_name} but for #{audience_name}"
     until tweet_length_check(idea) do
-      idea = "It's like #{company_name}, but for #{audience_name}"
+      @idea = "It's like #{company_name}, but for #{@audience_name}"
     end
-    store_ideas(idea)
-    idea
+    store_ideas(@idea)
+    @idea
   end
 
-  def tweet_length_check(string)
-    string.length < 130
-  end
+  private
 
   def store_ideas(idea)
     @all_ideas << idea
   end
 
+  def sample
+    @company_name = @companies.sample.name
+    @audience_name = @audiences.sample.name
+    @idea = "It's like #{@company_name}, but for #{@audience_name}"
+  end
+
+  def tweet_length_check(string)
+    string.length < 130
+  end
 end
 
 controller = Controller.new
 
 1000.times do
   controller.rand_idea
-  # controller.all_ideas
 end
-
-p controller.all_ideas
-
-# p new_controller.idea_by_category('transportation')
-# tweet = new_controller.tweet_idea
-# p tweet
-# p tweet.size
-
-# tweet_category = new_controller.tweet_by_category('transportation')
-# p tweet_category
-# p tweet_category.size
